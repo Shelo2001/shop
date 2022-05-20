@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: '1',
     name: 'Ori',
     image: '/images/watch1.jpg',
     description: 'საფირონი ანტი-ამრეკლი დაფარვით',
@@ -12,11 +11,9 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '2',
     name: 'P47 thunderbolt',
     image: '/images/watch2.jpg',
-    description:
-      'Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life',
+    description: 'საფირონი ანტი-ამრეკლი დაფარვით',
     brand: 'Apple',
     category: 'Electronics',
     price: 1499.99,
@@ -25,11 +22,9 @@ const products = [
     numReviews: 8,
   },
   {
-    _id: '3',
     name: 'Marina',
     image: '/images/watch3.jpg',
-    description:
-      'Characterized by versatile imaging specs, the Canon EOS 80D further clarifies itself using a pair of robust focusing systems and an intuitive design',
+    description: 'საფირონი ანტი-ამრეკლი დაფარვით',
     brand: 'Cannon',
     category: 'Electronics',
     price: 1899.99,
@@ -38,12 +33,9 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '4',
     name: 'Seven Automatic',
     image: '/images/watch4.jpg',
-    description:
-      'The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music',
-    brand: 'Sony',
+    description: 'საფირონი ანტი-ამრეკლი დაფარვით',
     category: 'Electronics',
     price: 1337.99,
     countInStock: 11,
@@ -51,11 +43,9 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '5',
     name: 'Seven Mini',
     image: '/images/watch5.jpg',
-    description:
-      'Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience',
+    description: 'საფირონი ანტი-ამრეკლი დაფარვით',
     brand: 'Logitech',
     category: 'Electronics',
     price: 1667.99,
@@ -64,11 +54,9 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: '6',
     name: 'Seven Man',
     image: '/images/watch6.jpg',
-    description:
-      'Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space',
+    description: 'საფირონი ანტი-ამრეკლი დაფარვით',
     brand: 'Amazon',
     category: 'Electronics',
     price: 1199.99,
@@ -77,11 +65,9 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '7',
     name: 'Seven Man',
     image: '/images/watch7.jpg',
-    description:
-      'Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space',
+    description: 'საფირონი ანტი-ამრეკლი დაფარვით',
     brand: 'Amazon',
     category: 'Electronics',
     price: 1199.99,
@@ -90,11 +76,9 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '8',
     name: 'Seven Man',
     image: '/images/watch8.jpg',
-    description:
-      'Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space',
+    description: 'საფირონი ანტი-ამრეკლი დაფარვით',
     brand: 'Amazon',
     category: 'Electronics',
     price: 1199.99,
@@ -104,4 +88,4 @@ const products = [
   },
 ]
 
-module.exports = products
+export default products
