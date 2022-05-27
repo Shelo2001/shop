@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProductDetails } from '../actions/productActions'
@@ -8,6 +8,7 @@ const ProductDetails = () => {
   const params = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [qty, setQty] = useState(1)
 
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, product, error } = productDetails
@@ -15,6 +16,10 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(listProductDetails(params.id))
   }, [dispatch, listProductDetails, params.id])
+
+  const addToCartHandler = () => {
+    navigate(`/cart/${params.id}?qty=${qty}`)
+  }
 
   return (
     <div>
@@ -70,12 +75,26 @@ const ProductDetails = () => {
                   {product.countInStock > 0 ? 'In Stock' : ' Out Of Stock'}
                 </p>
                 <hr></hr>
+                {product.countInStock > 0 && (
+                  <p className='leading-relaxed mx-2  my-2 text-md font-medium text-gray-900'>
+                    <select
+                      className='select select-primary  w-full max-w-xs'
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                    >
+                      {[...Array(product.countInStock).keys()].map((x) => (
+                        <option defaultValue={x}>{x + 1}</option>
+                      ))}
+                    </select>
+                  </p>
+                )}
                 <button
                   className={
                     product.countInStock === 0
                       ? 'btn btn-disabled leading-relaxed w-[94%]  mx-2 my-2 text-md font-medium  rounded-none'
                       : 'btn leading-relaxed w-[94%]  mx-2 my-2 text-md font-medium  rounded-none'
                   }
+                  onClick={addToCartHandler}
                 >
                   Add to Cart
                 </button>
