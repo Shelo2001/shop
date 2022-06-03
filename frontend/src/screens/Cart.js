@@ -35,7 +35,7 @@ const Cart = () => {
       <hr className='mt-5' />
       {cartItems.length === 0 ? (
         <div className='min-h-screen'>
-          <div class='alert alert-info shadow-lg my-5'>
+          <div class='alert alert-info shadow-lg  my-5'>
             <div>
               <i class='fa-solid text-white fa-circle-info'></i>
               <p className='text-white font-medium'>
@@ -176,7 +176,7 @@ const Cart = () => {
                     </div>
 
                     <button
-                      className='flex justify-center w-full px-10 py-3 mt-6 btn text-white'
+                      className='flex justify-center rou w-full px-10 py-3 mt-6 btn text-white'
                       disabled={cartItems.length === 0}
                       onClick={checkoutHandler}
                     >
