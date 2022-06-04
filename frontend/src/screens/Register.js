@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../actions/userActions'
+import { register } from '../actions/userActions'
 
 const Register = () => {
+  const [name, setName] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [message, setMessage] = useState(null)
+
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { loading, error, userInfo } = userLogin
-
-  const redirect = location.search ? location.search.split('=')[1] : '/'
+  const userRegister = useSelector((state) => state.userRegister)
+  const { loading, error, userInfo } = userRegister
 
   useEffect(() => {
     if (userInfo) {
@@ -23,18 +25,30 @@ const Register = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(login(email, password))
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match')
+    } else {
+      dispatch(register(name, email, password))
+    }
   }
 
   return (
     <div class='mx-auto flex min-h-screen w-full  justify-center bg-gray-900 text-white'>
       <section class='flex w-[30rem] mt-16 flex-col space-y-10'>
-        <div class='text-center text-4xl font-medium'>Sing In</div>
+        <div class='text-center text-4xl font-medium'>Register</div>
         {error && (
           <div class='alert alert-error shadow-lg  my-5'>
             <div>
               <i class='fa-solid text-white fa-circle-error'></i>
               <p className='text-white font-medium'>{error}</p>
+            </div>
+          </div>
+        )}
+        {message && (
+          <div class='alert alert-error shadow-lg  my-5'>
+            <div>
+              <i class='fa-solid text-white fa-circle-error'></i>
+              <p className='text-white font-medium'>{message}</p>
             </div>
           </div>
         )}
@@ -44,6 +58,16 @@ const Register = () => {
           </h1>
         )}
         <form onSubmit={submitHandler}>
+          <div class='flex flex-items w-full transform my-4 border-b-2 bg-transparent text-lg duration-300 focus-within:border-[#0070ba]'>
+            <i class='fa-solid fa-user flex-items mx-1 my-1 '></i>
+            <input
+              type='name'
+              placeholder='Username'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              class='w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none'
+            />
+          </div>
           <div class='flex flex-items w-full transform mt-4 border-b-2 bg-transparent text-lg duration-300 focus-within:border-[#0070ba]'>
             <i class='fa-solid fa-at flex-items mx-1 my-1 '></i>
             <input
@@ -70,20 +94,9 @@ const Register = () => {
             <i class='fa-solid fa-key flex-items mx-1 my-1 '></i>
             <input
               type='password'
-              placeholder='Password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              class='w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none'
-            />
-          </div>
-
-          <div class='flex flex-items w-full transform my-4 border-b-2 bg-transparent text-lg duration-300 focus-within:border-[#0070ba]'>
-            <i class='fa-solid fa-key flex-items mx-1 my-1 '></i>
-            <input
-              type='password'
-              placeholder='Password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Confirm Password'
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               class='w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none'
             />
           </div>

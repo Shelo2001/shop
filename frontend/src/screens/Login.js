@@ -29,7 +29,7 @@ const Login = () => {
   return (
     <div class='mx-auto flex min-h-screen w-full  justify-center bg-gray-900 text-white'>
       <section class='flex w-[30rem] mt-16 flex-col space-y-10'>
-        <div class='text-center text-4xl font-medium'>Sing In</div>
+        <div class='text-center text-4xl font-medium'>Sign In</div>
         {error && (
           <div class='alert alert-error shadow-lg  my-5'>
             <div>
