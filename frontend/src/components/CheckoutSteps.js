@@ -40,12 +40,12 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
         </li>
       )}
       {step4 ? (
-        <Link to='/placeorder'>
-          <li data-content='✓' class='step step-primary'>
-            {' '}
+        <li data-content='✓' class='step step-primary'>
+          {' '}
+          <Link to='/placeorder'>
             <p className='text-blue-700'>Place Order</p>{' '}
-          </li>
-        </Link>
+          </Link>
+        </li>
       ) : (
         <li data-content='●' class='step'>
           Place Order
