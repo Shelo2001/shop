@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
+import { listMyOrders } from '../actions/orderActions'
 
 const Profile = () => {
   const [name, setName] = useState('')
@@ -23,12 +24,16 @@ const Profile = () => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
 
+  const orderListMy = useSelector((state) => state.orderListMy)
+  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
+
   useEffect(() => {
     if (!userInfo) {
       navigate('/login')
     } else {
       if (!user.name) {
         dispatch(getUserDetails('profile'))
+        dispatch(listMyOrders())
       } else {
         setName(user.name)
         setEmail(user.email)
@@ -147,86 +152,72 @@ const Profile = () => {
         <div class=' text-4xl font-medium'>My Orders</div>
         <div class='overflow-x-auto '>
           <div class='relative overflow-x-auto shadow-md sm:rounded-lg'>
-            <table class='w-full text-sm text-left text-gray-500  dark:text-gray-400'>
-              <thead class='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
-                <tr>
-                  <th scope='col' class='px-6 py-3'>
-                    Product name
-                  </th>
-                  <th scope='col' class='px-6 py-3'>
-                    Color
-                  </th>
-                  <th scope='col' class='px-6 py-3'>
-                    Category
-                  </th>
-                  <th scope='col' class='px-6 py-3'>
-                    Price
-                  </th>
-                  <th scope='col' class='px-6 py-3'>
-                    <span class='sr-only'>Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-                  <th
-                    scope='row'
-                    class='px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap'
-                  >
-                    Apple MacBook Pro 17"
-                  </th>
-                  <td class='px-6 py-4'>Sliver</td>
-                  <td class='px-6 py-4'>Laptop</td>
-                  <td class='px-6 py-4'>$2999</td>
-                  <td class='px-6 py-4 text-right'>
-                    <a
-                      href='#'
-                      class='font-medium text-blue-600 dark:text-blue-500 hover:underline'
-                    >
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr class='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-                  <th
-                    scope='row'
-                    class='px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap'
-                  >
-                    Microsoft Surface Pro
-                  </th>
-                  <td class='px-6 py-4'>White</td>
-                  <td class='px-6 py-4'>Laptop PC</td>
-                  <td class='px-6 py-4'>$1999</td>
-                  <td class='px-6 py-4 text-right'>
-                    <a
-                      href='#'
-                      class='font-medium text-blue-600 dark:text-blue-500 hover:underline'
-                    >
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr class='bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600'>
-                  <th
-                    scope='row'
-                    class='px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap'
-                  >
-                    Magic Mouse 2
-                  </th>
-                  <td class='px-6 py-4'>Black</td>
-                  <td class='px-6 py-4'>Accessories</td>
-                  <td class='px-6 py-4'>$99</td>
-                  <td class='px-6 py-4 text-right'>
-                    <a
-                      href='#'
-                      class='font-medium text-blue-600 dark:text-blue-500 hover:underline'
-                    >
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            {loadingOrders ? (
+              <p>Loading...</p>
+            ) : errorOrders ? (
+              <p>{errorOrders}</p>
+            ) : (
+              <table class='w-full text-sm text-left text-gray-500  dark:text-gray-400'>
+                <thead class='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+                  <tr>
+                    <th scope='col' class='px-6 py-3'>
+                      ID
+                    </th>
+                    <th scope='col' class='px-6 py-3'>
+                      DATE
+                    </th>
+                    <th scope='col' class='px-6 py-3'>
+                      TOTAL
+                    </th>
+                    <th scope='col' class='px-6 py-3'>
+                      PAID
+                    </th>
+                    <th scope='col' class='px-6 py-3'>
+                      Delivered
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order) => (
+                    <tr class='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
+                      <th
+                        scope='row'
+                        class='px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap'
+                      >
+                        № {order._id}
+                      </th>
+                      <th
+                        scope='row'
+                        class='px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap'
+                      >
+                        {order.createdAt.substring(0, 10)}
+                      </th>
+                      <td class='px-6 py-4'>{order.totalPrice} $</td>
+                      <td class='px-6 py-4'>
+                        {order.isPaid ? (
+                          order.paidAt.substring(0, 10)
+                        ) : (
+                          <i
+                            className='fas fa-times'
+                            style={{ color: 'red' }}
+                          ></i>
+                        )}
+                      </td>
+                      <td class='px-6 py-4'>
+                        {order.isDelivered ? (
+                          order.deliveredAt.substring(0, 10)
+                        ) : (
+                          <i
+                            className='fas fa-times'
+                            style={{ color: 'red' }}
+                          ></i>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       </section>

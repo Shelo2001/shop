@@ -11,6 +11,7 @@ import Profile from './screens/Profile'
 import Shipping from './screens/Shipping'
 import Payment from './screens/Payment'
 import PlaceOrder from './screens/PlaceOrder'
+import Order from './screens/Order'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path='/shipping' element={<Shipping />} />
         <Route path='/payment' element={<Payment />} />
         <Route path='/placeorder' element={<PlaceOrder />} />
+        <Route path='/order/:id' element={<Order />} />
       </Routes>
       <Footer />
     </Router>
